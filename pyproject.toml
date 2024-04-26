@@ -6,15 +6,13 @@ authors = ["Denis Wojtkowiak"]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.12"
+tensorflow-macos = { version = "^2.15.0", markers = "platform_system=='Darwin' and platform_machine=='arm64'" }
+tensorflow = "^2.13.0"
 pandas = "^2.2.2"
 numpy = "^1.26.4"
 matplotlib = "^3.8.4"
 scikit-learn = "^1.4.2"
 networkx = "3.2.1"
-tensorflow-io-gcs-filesystem = "0.31.0"
-tensorflow = "^2.16.1"
-
-
 
 [build-system]
 requires = ["poetry-core"]
