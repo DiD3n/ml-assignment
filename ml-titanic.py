@@ -47,7 +47,8 @@ def run_network(data=X):
     return hidden_layer_output, predicted_output
 
 
-losses = []
+losses1 = []
+losses2 = []
 for epoch in range(epochs):
     # Propagacja w przód
     hidden_layer_output, predicted_output = run_network()
@@ -68,11 +69,12 @@ for epoch in range(epochs):
 
     # Rejestrowanie straty
     if epoch % 100 == 0:
-        loss = np.mean(np.square(Y - predicted_output))
-        losses.append(loss)
-        print(f"{epoch/epochs*100:.2f}% done, loss: {loss}");
+        loss = np.mean(np.square(error))
+        loss2 = np.mean(np.square(error_hidden_layer))
+        losses1.append(loss)
+        losses2.append(loss2)
+        print(f"{epoch/epochs*100:.2f}% done, loss: {loss} {loss2}");
 
-# Wizlualizacja neuronów
 
 import matplotlib.pyplot as plt
 
@@ -86,7 +88,8 @@ print("Bias warstwy wyjściowej:")
 print(bias_output)
 
 
-plt.plot(losses)
+plt.plot(losses1)
+plt.plot(losses2)
 plt.xlabel('Epoch')
 plt.ylabel('Loss')
 plt.title('Loss Over Time')
@@ -116,8 +119,8 @@ while True:
     parch = float(input("Parch: "))
     embarked = float(input("Embarked (S -> 1, C -> 2, Q -> 3): "))
 
-    data = np.array([sex, age, pclass, sibsp, parch, embarked]).reshape(1, -1)
-
+    data = np.array([sex, age, pclass, sibsp, parch, embarked])
+    
     _, predicted_output = run_network(data)
 
     print("Szansa na przeżycie: ", predicted_output[0][0])

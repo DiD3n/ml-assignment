@@ -3,16 +3,19 @@ name = "ml-assignment"
 version = "0.1.0"
 description = "wsb assignment"
 authors = ["Denis Wojtkowiak"]
+package-mode = false
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.12"
-tensorflow-macos = { version = "^2.15.0", markers = "platform_system=='Darwin' and platform_machine=='arm64'" }
 tensorflow = "^2.13.0"
+tensorflow-macos = { version = "^2.15.0", markers = "platform_system=='Darwin' and platform_machine=='arm64'" }
+tensorflow-io-gcs-filesystem = {version = "0.31.0", platform = "win32"}
 pandas = "^2.2.2"
 numpy = "^1.26.4"
 matplotlib = "^3.8.4"
 scikit-learn = "^1.4.2"
 networkx = "3.2.1"
+tensorflow-hub = "^0.16.1"
 
 [build-system]
 requires = ["poetry-core"]

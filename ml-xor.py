@@ -13,11 +13,14 @@ data = pd.DataFrame({
 X = data[['X1', 'X2']].values
 Y = data['Y'].values.reshape(-1, 1)
 
+
 def sigmoid(x):
     return 1 / (1 + np.exp(-x))
 
+
 def sigmoid_derivative(x):
     return x * (1 - x)
+
 
 # Parametry sieci
 input_size = X.shape[1]
@@ -36,6 +39,7 @@ epochs = 10000
 
 
 losses = []
+losses2 = []
 for epoch in range(epochs):
 
     # Propagacja w przód
@@ -61,12 +65,15 @@ for epoch in range(epochs):
 
     # Co pewien czas wypisz błąd
     if epoch % 100 == 0:
-        loss = np.mean(np.square(Y - predicted_output))
+        loss = np.mean(np.square(error))
+        loss2 = np.mean(np.square(error_hidden_layer))
         losses.append(loss)
-        print(f"{epoch/epochs*100:.2f}% done, loss: {loss}");
+        losses2.append(loss2)
+        print(f"{epoch/epochs*100:.2f}% done, loss: {loss} {loss2}")
 
 
 plt.plot(losses)
+plt.plot(losses2)
 plt.xlabel('Epoch')
 plt.ylabel('Loss')
 plt.title('Loss Over Time')
