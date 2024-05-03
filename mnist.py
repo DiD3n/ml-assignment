@@ -11,7 +11,7 @@ x_test = x_test.reshape((10000, 28, 28, 1))
 # check if model already exists
 model_cnn = None
 try:
-    raise FileNotFoundError
+    raise ValueError('Force model creation')
     model_cnn = tf.keras.models.load_model('model_cnn.keras')
 except:
     model_cnn = tf.keras.models.Sequential([
@@ -28,20 +28,21 @@ except:
                       loss='sparse_categorical_crossentropy',
                       metrics=['accuracy'])
 
-    model_cnn.fit(x_train, y_train, epochs=5)
+    history = model_cnn.fit(x_train, y_train, epochs=5)
+
+    # only in this context we have historic data
+    import matplotlib.pyplot as plt
+
+    plt.plot(history.history['loss'])
+    plt.xlabel('Epoch')
+    plt.ylabel('Loss')
+    plt.title('Loss Over Time')
+    plt.show()
 
 test_loss, test_acc = model_cnn.evaluate(x_test, y_test)
 
-import matplotlib.pyplot as plt
-
-plt.plot(model_cnn.history)
-plt.plot(model_cnn.history)
-plt.xlabel('Epoch')
-plt.ylabel('Accuracy')
-plt.title('Accuracy Over Time')
-plt.show()
-
 print(f"Test accuracy: {test_acc}")
+
 
 model_cnn.save('model_cnn.keras')
 
